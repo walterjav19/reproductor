@@ -1,0 +1,23 @@
+[
+  {
+    "titulo": "Eo",
+    "artista": "Bad Bunny",
+    "duracion": "03:15",
+    "archivo": "/musica/eo.mp3",
+    "imagen": "/imagenes/eo.jpg"
+  },
+  {
+    "titulo": "Dakiti",
+    "artista": "Bad Bunny ft. Jhay Cortez",
+    "duracion": "03:25",
+    "archivo": "/musica/dakiti.mp3",
+    "imagen": "/imagenes/dakiti.png"
+  },
+  {
+    "titulo": "One",
+    "artista": "Metallica",
+    "duracion": "07:24",
+    "archivo": "/musica/one.mp3",
+    "imagen": "/imagenes/one.jpg"
+  }
+]

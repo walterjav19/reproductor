@@ -9,6 +9,11 @@ import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { DemoProvider, useDemoRouter } from '@toolpad/core/internal';
+import { useNavigate } from 'react-router-dom';
+import Admin from './Admin';
+import Music from './Music';
+import Lists from './Lists';
+
 
 import logo from '../assets/reproduct.png';
 
@@ -77,10 +82,25 @@ DemoPageContent.propTypes = {
 };
 
 function Dashboard(props) {
+  const renderPageContent = () => {
+    switch (router.pathname) {
+      case '/admin':
+        return <Admin />;
+      case '/reproductor':
+        return <Music />;
+      case '/playlist':
+        return <Lists />;
+      default:
+        return <Typography>Ruta no encontrada</Typography>;
+    }
+  };
+
+
   const { window } = props;
 
   const router = useDemoRouter('/admin');
 
+  // Estado de sesión datos quemados 
   const [session, setSession] = React.useState({
     user: {
       name: 'Bharat Kashyap',
@@ -89,22 +109,27 @@ function Dashboard(props) {
     },
   });
 
-  const authentication = React.useMemo(() => {
-    return {
-      signIn: () => {
-        setSession({
-          user: {
-            name: 'Bharat Kashyap',
-            email: 'bharatkashyap@outlook.com',
-            image: 'https://avatars.githubusercontent.com/u/19550456',
-          },
-        });
-      },
-      signOut: () => {
-        setSession(null);
-      },
-    };
-  }, []);
+  const navigate = useNavigate();
+
+const authentication = React.useMemo(() => {
+  return {
+    signIn: () => {
+      setSession({
+        user: {
+          name: 'prueba',
+          email: 'bharatkashyap@outlook.com',
+          image: 'https://avatars.githubusercontent.com/u/19550456',
+        },
+      });
+    },
+    signOut: () => {
+      setSession(null);
+      localStorage.removeItem('rol'); // opcional: limpiar rol
+      navigate('/'); // redirigir a la página de inicio de sesión
+    },
+  };
+}, []);
+
 
 
 
@@ -126,8 +151,9 @@ function Dashboard(props) {
         window={demoWindow}
       >
         <DashboardLayout>
-          <DemoPageContent pathname={router.pathname} />
+            {renderPageContent()}
         </DashboardLayout>
+
       </AppProvider>
     </DemoProvider>
   );
